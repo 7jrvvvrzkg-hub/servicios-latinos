@@ -557,6 +557,7 @@
     });
     document.documentElement.setAttribute('lang', lang);
     try { window.currentLang = lang; } catch(e) {}
+    try { localStorage.setItem('slIncLang', lang); } catch(e) {}
   }
 
   document.querySelectorAll('.lang-link').forEach(function(el){
@@ -565,6 +566,12 @@
       setLanguage(this.getAttribute('data-lang'));
     });
   });
+
+  (function(){
+    var saved = null;
+    try { saved = localStorage.getItem('slIncLang'); } catch(e) {}
+    if (saved === 'en' || saved === 'es') { setLanguage(saved); }
+  })();
 </script>
 
 <script>
