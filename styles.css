@@ -323,6 +323,7 @@
   }
   .service-content .link svg{width:15px;height:15px;transition:transform .15s ease;}
   .service-content .link:hover svg{transform:translateX(3px);}
+  .link-row{display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px;}
 
   /* Seguros — deep navy field */
   .row-seguros{background:var(--navy-deep); color:#fff;}
