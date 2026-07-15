@@ -218,6 +218,22 @@
         <a href="tel:7575880623" class="btn btn-primary"><span data-i18n="cta.button">Llamar (757) 588-0623</span></a>
       </div>
     </div>
+  <!-- NEWSLETTER -->
+  <section class="newsletter-section">
+    <div class="wrap">
+      <div class="newsletter-inner">
+        <span class="eyebrow" data-i18n="nl.eyebrow">Mantente al día</span>
+        <h2 data-i18n="nl.title">No te pierdas ninguna fecha importante</h2>
+        <p data-i18n="nl.sub">Te avisamos cuando empieza la temporada de impuestos, cuándo renovar tus placas o tu póliza de seguro, y te enviamos estimados gratis — directo a tu correo, justo cuando lo necesitas.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); document.getElementById('nl-success').style.display='block'; this.reset();">
+          <input type="text" id="nl-name" required placeholder="Tu nombre" data-i18n-ph="nl.name_ph">
+          <input type="email" id="nl-email" required placeholder="Tu correo electrónico" data-i18n-ph="nl.email_ph">
+          <button type="submit" data-i18n="nl.button">Suscribirme</button>
+        </form>
+        <p class="newsletter-note" data-i18n="nl.note">Sin spam. Cancela cuando quieras.</p>
+        <p class="newsletter-success" id="nl-success" data-i18n="nl.success">¡Gracias! Ya estás suscrito.</p>
+      </div>
+    </div>
   </section>
 
 </main>
@@ -323,6 +339,14 @@
       'cta.h3': '¿Listo para tu estimado gratis?',
       'cta.p': 'Sin compromiso. Te respondemos el mismo día, en español o inglés.',
       'cta.button': 'Llamar (757) 588-0623',
+      'nl.eyebrow': 'Mantente al día',
+      'nl.title': 'No te pierdas ninguna fecha importante',
+      'nl.sub': 'Te avisamos cuando empieza la temporada de impuestos, cuándo renovar tus placas o tu póliza de seguro, y te enviamos estimados gratis — directo a tu correo, justo cuando lo necesitas.',
+      'nl.name_ph': 'Tu nombre',
+      'nl.email_ph': 'Tu correo electrónico',
+      'nl.button': 'Suscribirme',
+      'nl.note': 'Sin spam. Cancela cuando quieras.',
+      'nl.success': '¡Gracias! Ya estás suscrito.',
       'footer.tagline': 'Seguros, taxes y trámites vehiculares para la comunidad latina en Virginia y Delaware desde 2011.',
       'footer.services': 'Servicios', 'footer.company': 'Compañía', 'footer.news': 'Noticias',
       'footer.contact': 'Contacto', 'footer.address': '2317 E Little Creek Rd,<br>Norfolk, VA 23518',
@@ -387,6 +411,14 @@
       'cta.h3': 'Ready for your free quote?',
       'cta.p': 'No obligation. We\'ll get back to you the same day, in English or Spanish.',
       'cta.button': 'Call (757) 588-0623',
+      'nl.eyebrow': 'Stay in the loop',
+      'nl.title': 'Never miss an important date',
+      'nl.sub': 'We\'ll let you know when tax season opens, when it\'s time to renew your plates or your insurance policy, and send you free estimates — straight to your inbox, right when you need it.',
+      'nl.name_ph': 'Your name',
+      'nl.email_ph': 'Your email',
+      'nl.button': 'Subscribe',
+      'nl.note': 'No spam. Unsubscribe anytime.',
+      'nl.success': 'Thanks! You\'re subscribed.',
       'footer.tagline': 'Insurance, taxes, and vehicle services for the Latino community in Virginia and Delaware since 2011.',
       'footer.services': 'Services', 'footer.company': 'Company', 'footer.news': 'News',
       'footer.contact': 'Contact', 'footer.address': '2317 E Little Creek Rd,<br>Norfolk, VA 23518',
@@ -399,6 +431,10 @@
     document.querySelectorAll('[data-i18n]').forEach(function(el){
       var key = el.getAttribute('data-i18n');
       if (dict[key] !== undefined) { el.innerHTML = dict[key]; }
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+      var key = el.getAttribute('data-i18n-ph');
+      if (dict[key] !== undefined) { el.setAttribute('placeholder', dict[key]); }
     });
     document.querySelectorAll('.lang-link').forEach(function(el){
       el.classList.toggle('active', el.getAttribute('data-lang') === lang);
