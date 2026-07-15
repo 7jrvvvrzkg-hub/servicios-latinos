@@ -458,7 +458,7 @@
     .newsletter-form{flex-direction:column;}
     .newsletter-form input, .newsletter-form button{width:100%;}
   }
-  .newsletter-note{font-size:13px; color:var(--ink-soft); margin-top:14px;}
+  .newsletter-note{font-size:12.5px; color:var(--ink-soft); opacity:0.75; margin-top:26px;}
   .newsletter-success{display:none; font-size:14px; font-weight:650; color:var(--navy); margin-top:16px;}
 
   /* ===== Contact / newsletter ===== */

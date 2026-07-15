@@ -171,7 +171,7 @@
         <span class="eyebrow" data-i18n="nl.eyebrow">Mantente al día</span>
         <h2 data-i18n="nl.title">No te pierdas ninguna fecha importante</h2>
         <p data-i18n="nl.sub">Te avisamos cuando empieza la temporada de impuestos, cuándo renovar tus placas o tu póliza de seguro, y te enviamos estimados gratis — directo a tu correo, justo cuando lo necesitas.</p>
-        <form class="newsletter-form" onsubmit="event.preventDefault(); document.getElementById('nl-success').style.display='block'; this.reset();">
+        <form class="newsletter-form" id="newsletter-form" data-source="taxes">
           <input type="text" id="nl-name" required placeholder="Tu nombre" data-i18n-ph="nl.name_ph">
           <input type="email" id="nl-email" required placeholder="Tu correo electrónico" data-i18n-ph="nl.email_ph">
           <button type="submit" data-i18n="nl.button">Suscribirme</button>
@@ -434,6 +434,45 @@
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
     targets.forEach(function(el){ observer.observe(el); });
+  })();
+</script>
+
+<script>
+  // === Google Sheet newsletter signup ===
+  // Replace the line below with your own Apps Script Web App URL (see setup guide).
+  var NEWSLETTER_ENDPOINT = "https://script.google.com/macros/s/AKfycbw3idf-1MffSfvnHJjUmPGlCpRIEV-rMmbX70zDwWmWsWHJ5SfO8GNuYjvlBn8hbuaA0g/exec";
+
+  (function(){
+    var form = document.getElementById('newsletter-form');
+    var success = document.getElementById('nl-success');
+    if (!form) return;
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var name = document.getElementById('nl-name').value.trim();
+      var email = document.getElementById('nl-email').value.trim();
+      var source = form.getAttribute('data-source') || 'unknown';
+
+      if (NEWSLETTER_ENDPOINT.indexOf('PASTE_YOUR') === 0) {
+        console.warn('Newsletter endpoint not configured yet — see setup guide.');
+        if (success) success.style.display = 'block';
+        form.reset();
+        return;
+      }
+
+      fetch(NEWSLETTER_ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({ name: name, email: email, source: source })
+      }).then(function(){
+        if (success) success.style.display = 'block';
+        form.reset();
+      }).catch(function(){
+        if (success) success.style.display = 'block';
+        form.reset();
+      });
+    });
   })();
 </script>
 
