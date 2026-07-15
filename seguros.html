@@ -516,17 +516,32 @@
     var form = document.getElementById('newsletter-form');
     var success = document.getElementById('nl-success');
     if (!form) return;
+    var submitBtn = form.querySelector('button[type="submit"]');
+    var alreadySubmitted = false;
 
     form.addEventListener('submit', function(e){
       e.preventDefault();
+      if (alreadySubmitted) return;
+      alreadySubmitted = true;
+
       var name = document.getElementById('nl-name').value.trim();
       var email = document.getElementById('nl-email').value.trim();
       var source = form.getAttribute('data-source') || 'unknown';
 
-      if (NEWSLETTER_ENDPOINT.indexOf('PASTE_YOUR') === 0) {
-        console.warn('Newsletter endpoint not configured yet — see setup guide.');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = '0.6';
+        submitBtn.style.cursor = 'not-allowed';
+      }
+
+      function finish(){
         if (success) success.style.display = 'block';
         form.reset();
+      }
+
+      if (NEWSLETTER_ENDPOINT.indexOf('PASTE_YOUR') === 0) {
+        console.warn('Newsletter endpoint not configured yet — see setup guide.');
+        finish();
         return;
       }
 
@@ -535,13 +550,7 @@
         mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ name: name, email: email, source: source })
-      }).then(function(){
-        if (success) success.style.display = 'block';
-        form.reset();
-      }).catch(function(){
-        if (success) success.style.display = 'block';
-        form.reset();
-      });
+      }).then(finish).catch(finish);
     });
   })();
 </script>
